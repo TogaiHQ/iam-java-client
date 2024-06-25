@@ -46,6 +46,16 @@ public class CreateUserRequest {
     @SerializedName(SERIALIZED_NAME_EMAIL)
     private String email;
 
+    public static final String SERIALIZED_NAME_ISSUER_NAME = "issuerName";
+
+    @SerializedName(SERIALIZED_NAME_ISSUER_NAME)
+    private String issuerName;
+
+    public static final String SERIALIZED_NAME_ISSUER_TOKEN = "issuerToken";
+
+    @SerializedName(SERIALIZED_NAME_ISSUER_TOKEN)
+    private String issuerToken;
+
     public static final String SERIALIZED_NAME_PHONE = "phone";
 
     @SerializedName(SERIALIZED_NAME_PHONE)
@@ -146,8 +156,8 @@ public class CreateUserRequest {
      *
      * @return name
      */
-    @javax.annotation.Nonnull
-    @ApiModelProperty(required = true, value = "")
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
     public String getName() {
         return name;
     }
@@ -196,6 +206,48 @@ public class CreateUserRequest {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public CreateUserRequest issuerName(String issuerName) {
+
+        this.issuerName = issuerName;
+        return this;
+    }
+
+    /**
+     * Get issuerName
+     *
+     * @return issuerName
+     */
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+    public String getIssuerName() {
+        return issuerName;
+    }
+
+    public void setIssuerName(String issuerName) {
+        this.issuerName = issuerName;
+    }
+
+    public CreateUserRequest issuerToken(String issuerToken) {
+
+        this.issuerToken = issuerToken;
+        return this;
+    }
+
+    /**
+     * Get issuerToken
+     *
+     * @return issuerToken
+     */
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+    public String getIssuerToken() {
+        return issuerToken;
+    }
+
+    public void setIssuerToken(String issuerToken) {
+        this.issuerToken = issuerToken;
     }
 
     public CreateUserRequest phone(String phone) {
@@ -295,6 +347,8 @@ public class CreateUserRequest {
                 && Objects.equals(this.name, createUserRequest.name)
                 && Objects.equals(this.password, createUserRequest.password)
                 && Objects.equals(this.email, createUserRequest.email)
+                && Objects.equals(this.issuerName, createUserRequest.issuerName)
+                && Objects.equals(this.issuerToken, createUserRequest.issuerToken)
                 && Objects.equals(this.phone, createUserRequest.phone)
                 && Objects.equals(this.status, createUserRequest.status)
                 && Objects.equals(this.verified, createUserRequest.verified)
@@ -304,7 +358,16 @@ public class CreateUserRequest {
     @Override
     public int hashCode() {
         return Objects.hash(
-                preferredUsername, name, password, email, phone, status, verified, loginAccess);
+                preferredUsername,
+                name,
+                password,
+                email,
+                issuerName,
+                issuerToken,
+                phone,
+                status,
+                verified,
+                loginAccess);
     }
 
     @Override
@@ -317,6 +380,8 @@ public class CreateUserRequest {
         sb.append("    name: ").append(toIndentedString(name)).append("\n");
         sb.append("    password: ").append(toIndentedString(password)).append("\n");
         sb.append("    email: ").append(toIndentedString(email)).append("\n");
+        sb.append("    issuerName: ").append(toIndentedString(issuerName)).append("\n");
+        sb.append("    issuerToken: ").append(toIndentedString(issuerToken)).append("\n");
         sb.append("    phone: ").append(toIndentedString(phone)).append("\n");
         sb.append("    status: ").append(toIndentedString(status)).append("\n");
         sb.append("    verified: ").append(toIndentedString(verified)).append("\n");

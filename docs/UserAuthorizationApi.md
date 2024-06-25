@@ -172,7 +172,7 @@ This endpoint does not need any parameter.
 
 ## getTokenForOrg
 
-> TokenResponse getTokenForOrg(organizationId)
+> TokenResponse getTokenForOrg(organizationId, getTokenForSubOrgRequest)
 
 Generate a organization_id scoped token
 
@@ -205,8 +205,9 @@ public class Example {
 
         UserAuthorizationApi apiInstance = new UserAuthorizationApi(defaultClient);
         String organizationId = "organizationId_example"; // String | 
+        GetTokenForSubOrgRequest getTokenForSubOrgRequest = new GetTokenForSubOrgRequest(); // GetTokenForSubOrgRequest | Payload to generate a token for sub organization user
         try {
-            TokenResponse result = apiInstance.getTokenForOrg(organizationId);
+            TokenResponse result = apiInstance.getTokenForOrg(organizationId, getTokenForSubOrgRequest);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling UserAuthorizationApi#getTokenForOrg");
@@ -225,6 +226,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **organizationId** | **String**|  | |
+| **getTokenForSubOrgRequest** | [**GetTokenForSubOrgRequest**](GetTokenForSubOrgRequest.md)| Payload to generate a token for sub organization user | |
 
 ### Return type
 
@@ -236,7 +238,7 @@ public class Example {
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json, text/plain
 
 

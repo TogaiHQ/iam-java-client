@@ -2,6 +2,7 @@ package com.hypto.iam.client.api;
 
 import com.hypto.iam.client.CollectionFormats.*;
 import com.hypto.iam.client.model.GetDelegateTokenRequest;
+import com.hypto.iam.client.model.GetTokenForSubOrgRequest;
 import com.hypto.iam.client.model.TokenResponse;
 import com.hypto.iam.client.model.ValidationRequest;
 import com.hypto.iam.client.model.ValidationResponse;
@@ -36,11 +37,15 @@ public interface UserAuthorizationApi {
      * by the provided organization_id
      *
      * @param organizationId (required)
+     * @param getTokenForSubOrgRequest Payload to generate a token for sub organization user
+     *     (required)
      * @return Call&lt;TokenResponse&gt;
      */
+    @Headers({"Content-Type:application/json"})
     @POST("organizations/{organization_id}/token")
     Call<TokenResponse> getTokenForOrg(
-            @retrofit2.http.Path("organization_id") String organizationId);
+            @retrofit2.http.Path("organization_id") String organizationId,
+            @retrofit2.http.Body GetTokenForSubOrgRequest getTokenForSubOrgRequest);
 
     /**
      * Generate a organization_id scoped token Generate a token for the given user credential scoped
@@ -75,9 +80,11 @@ public interface UserAuthorizationApi {
     @POST("token")
     Call<TokenResponse> getToken(@retrofit2.http.HeaderMap Map<String, String> headers);
 
+    @Headers({"Content-Type:application/json"})
     @POST("organizations/{organization_id}/token")
     Call<TokenResponse> getTokenForOrg(
             @retrofit2.http.Path("organization_id") String organizationId,
+            @retrofit2.http.Body GetTokenForSubOrgRequest getTokenForSubOrgRequest,
             @retrofit2.http.HeaderMap Map<String, String> headers);
 
     @POST("organizations/{organization_id}/sub_organizations/{sub_organization_name}/token")

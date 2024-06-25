@@ -6,6 +6,8 @@ import com.hypto.iam.client.model.ChangeUserPasswordRequest;
 import com.hypto.iam.client.model.CreateUserPasswordRequest;
 import com.hypto.iam.client.model.CreateUserRequest;
 import com.hypto.iam.client.model.CreateUserResponse;
+import com.hypto.iam.client.model.LinkUserRequest;
+import com.hypto.iam.client.model.LinkUsersPaginatedResponse;
 import com.hypto.iam.client.model.ResetPasswordRequest;
 import com.hypto.iam.client.model.TokenResponse;
 import com.hypto.iam.client.model.UpdateUserRequest;
@@ -144,6 +146,18 @@ public interface UserManagementApi {
             @retrofit2.http.Path("organization_id") String organizationId);
 
     /**
+     * Delete an user link Delete an user link
+     *
+     * @param organizationId (required)
+     * @param userLinkId (required)
+     * @return Call&lt;BaseSuccessResponse&gt;
+     */
+    @DELETE("user_links/{user_link_id}")
+    Call<BaseSuccessResponse> deleteUserLink(
+            @retrofit2.http.Path("organization_id") String organizationId,
+            @retrofit2.http.Path("user_link_id") String userLinkId);
+
+    /**
      * Gets a user entity associated with the organization Get a User
      *
      * @param userName (required)
@@ -171,6 +185,21 @@ public interface UserManagementApi {
             @retrofit2.http.Path("organization_id") String organizationId);
 
     /**
+     * Link one user with another user of same/different organization Link one user with another
+     * user of same/different organization
+     *
+     * @param organizationId (required)
+     * @param linkUserRequest Payload to link a user to another user of same/different organization
+     *     (required)
+     * @return Call&lt;TokenResponse&gt;
+     */
+    @Headers({"Content-Type:application/json"})
+    @POST("user_links")
+    Call<TokenResponse> linkUser(
+            @retrofit2.http.Path("organization_id") String organizationId,
+            @retrofit2.http.Body LinkUserRequest linkUserRequest);
+
+    /**
      * List users List users associated with the organization. This is a pagniated api which returns
      * the list of users with a next page token.
      *
@@ -186,6 +215,26 @@ public interface UserManagementApi {
             @retrofit2.http.Path("sub_organization_name") String subOrganizationName,
             @retrofit2.http.Query("nextToken") String nextToken,
             @retrofit2.http.Query("pageSize") String pageSize);
+
+    /**
+     * List user links based on the role. Each user link is associated with a leader user and a
+     * subordinate user. This API allows to list all users of a certain role[LEADER/SUBORDINATE]
+     * linked with the current user.
+     *
+     * @param organizationId (required)
+     * @param role (required)
+     * @param nextToken (optional)
+     * @param pageSize (optional)
+     * @param sortOrder (optional)
+     * @return Call&lt;LinkUsersPaginatedResponse&gt;
+     */
+    @GET("user_links")
+    Call<LinkUsersPaginatedResponse> listUserLinks(
+            @retrofit2.http.Path("organization_id") String organizationId,
+            @retrofit2.http.Query("role") String role,
+            @retrofit2.http.Query("nextToken") String nextToken,
+            @retrofit2.http.Query("pageSize") String pageSize,
+            @retrofit2.http.Query("sortOrder") String sortOrder);
 
     /**
      * List users List users associated with the organization. This is a pagniated api which returns
@@ -230,6 +279,18 @@ public interface UserManagementApi {
             @retrofit2.http.Path("organization_id") String organizationId,
             @retrofit2.http.Path("sub_organization_name") String subOrganizationName,
             @retrofit2.http.Body ResetPasswordRequest resetPasswordRequest);
+
+    /**
+     * Get authentication details for switching user Get authentication details for switching user
+     *
+     * @param organizationId (required)
+     * @param userLinkId (required)
+     * @return Call&lt;TokenResponse&gt;
+     */
+    @POST("user_links/{user_link_id}")
+    Call<TokenResponse> switchUser(
+            @retrofit2.http.Path("organization_id") String organizationId,
+            @retrofit2.http.Path("user_link_id") String userLinkId);
 
     /**
      * Update a User Update a User
@@ -329,6 +390,12 @@ public interface UserManagementApi {
             @retrofit2.http.Path("organization_id") String organizationId,
             @retrofit2.http.HeaderMap Map<String, String> headers);
 
+    @DELETE("user_links/{user_link_id}")
+    Call<BaseSuccessResponse> deleteUserLink(
+            @retrofit2.http.Path("organization_id") String organizationId,
+            @retrofit2.http.Path("user_link_id") String userLinkId,
+            @retrofit2.http.HeaderMap Map<String, String> headers);
+
     @GET(
             "organizations/{organization_id}/sub_organizations/{sub_organization_name}/users/{user_name}")
     Call<User> getSubOrganizationUser(
@@ -343,12 +410,28 @@ public interface UserManagementApi {
             @retrofit2.http.Path("organization_id") String organizationId,
             @retrofit2.http.HeaderMap Map<String, String> headers);
 
+    @Headers({"Content-Type:application/json"})
+    @POST("user_links")
+    Call<TokenResponse> linkUser(
+            @retrofit2.http.Path("organization_id") String organizationId,
+            @retrofit2.http.Body LinkUserRequest linkUserRequest,
+            @retrofit2.http.HeaderMap Map<String, String> headers);
+
     @GET("organizations/{organization_id}/sub_organizations/{sub_organization_name}/users")
     Call<UserPaginatedResponse> listSubOrganizationUsers(
             @retrofit2.http.Path("organization_id") String organizationId,
             @retrofit2.http.Path("sub_organization_name") String subOrganizationName,
             @retrofit2.http.Query("nextToken") String nextToken,
             @retrofit2.http.Query("pageSize") String pageSize,
+            @retrofit2.http.HeaderMap Map<String, String> headers);
+
+    @GET("user_links")
+    Call<LinkUsersPaginatedResponse> listUserLinks(
+            @retrofit2.http.Path("organization_id") String organizationId,
+            @retrofit2.http.Query("role") String role,
+            @retrofit2.http.Query("nextToken") String nextToken,
+            @retrofit2.http.Query("pageSize") String pageSize,
+            @retrofit2.http.Query("sortOrder") String sortOrder,
             @retrofit2.http.HeaderMap Map<String, String> headers);
 
     @GET("organizations/{organization_id}/users")
@@ -372,6 +455,12 @@ public interface UserManagementApi {
             @retrofit2.http.Path("organization_id") String organizationId,
             @retrofit2.http.Path("sub_organization_name") String subOrganizationName,
             @retrofit2.http.Body ResetPasswordRequest resetPasswordRequest,
+            @retrofit2.http.HeaderMap Map<String, String> headers);
+
+    @POST("user_links/{user_link_id}")
+    Call<TokenResponse> switchUser(
+            @retrofit2.http.Path("organization_id") String organizationId,
+            @retrofit2.http.Path("user_link_id") String userLinkId,
             @retrofit2.http.HeaderMap Map<String, String> headers);
 
     @Headers({"Content-Type:application/json"})

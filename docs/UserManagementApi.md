@@ -12,12 +12,16 @@ All URIs are relative to *https://sandbox-iam.us.hypto.com/v1*
 | [**createUser**](UserManagementApi.md#createUser) | **POST** organizations/{organization_id}/users | Create a user |
 | [**deleteSubOrganizationUser**](UserManagementApi.md#deleteSubOrganizationUser) | **DELETE** organizations/{organization_id}/sub_organizations/{sub_organization_name}/users/{user_name} | Delete a User |
 | [**deleteUser**](UserManagementApi.md#deleteUser) | **DELETE** organizations/{organization_id}/users/{user_name} | Delete a User |
+| [**deleteUserLink**](UserManagementApi.md#deleteUserLink) | **DELETE** user_links/{user_link_id} | Delete an user link |
 | [**getSubOrganizationUser**](UserManagementApi.md#getSubOrganizationUser) | **GET** organizations/{organization_id}/sub_organizations/{sub_organization_name}/users/{user_name} | Gets a user entity associated with the organization |
 | [**getUser**](UserManagementApi.md#getUser) | **GET** organizations/{organization_id}/users/{user_name} | Gets a user entity associated with the organization |
+| [**linkUser**](UserManagementApi.md#linkUser) | **POST** user_links | Link one user with another user of same/different organization |
 | [**listSubOrganizationUsers**](UserManagementApi.md#listSubOrganizationUsers) | **GET** organizations/{organization_id}/sub_organizations/{sub_organization_name}/users | List users |
+| [**listUserLinks**](UserManagementApi.md#listUserLinks) | **GET** user_links | List user links based on the role. |
 | [**listUsers**](UserManagementApi.md#listUsers) | **GET** organizations/{organization_id}/users | List users |
 | [**resetPassword**](UserManagementApi.md#resetPassword) | **POST** organizations/{organization_id}/users/resetPassword | Reset Password |
 | [**resetSubOrganizationPassword**](UserManagementApi.md#resetSubOrganizationPassword) | **POST** organizations/{organization_id}/sub_organizations/{sub_organization_name}/users/resetPassword | Reset Password |
+| [**switchUser**](UserManagementApi.md#switchUser) | **POST** user_links/{user_link_id} | Get authentication details for switching user |
 | [**updateSubOrganizationUser**](UserManagementApi.md#updateSubOrganizationUser) | **PATCH** organizations/{organization_id}/sub_organizations/{sub_organization_name}/users/{user_name} | Update a User |
 | [**updateUser**](UserManagementApi.md#updateUser) | **PATCH** organizations/{organization_id}/users/{user_name} | Update a User |
 
@@ -669,6 +673,85 @@ public class Example {
 | **0** | Error response |  * X-Iam-User-Organization - Organization Id of the authenticated user <br>  |
 
 
+## deleteUserLink
+
+> BaseSuccessResponse deleteUserLink(organizationId, userLinkId)
+
+Delete an user link
+
+Delete an user link
+
+### Example
+
+```java
+// Import classes:
+import com.hypto.iam.client.ApiClient;
+import com.hypto.iam.client.ApiException;
+import com.hypto.iam.client.Configuration;
+import com.hypto.iam.client.auth.*;
+import com.hypto.iam.client.models.*;
+import com.hypto.iam.client.api.UserManagementApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://sandbox-iam.us.hypto.com/v1");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
+
+        UserManagementApi apiInstance = new UserManagementApi(defaultClient);
+        String organizationId = "organizationId_example"; // String | 
+        String userLinkId = "userLinkId_example"; // String | 
+        try {
+            BaseSuccessResponse result = apiInstance.deleteUserLink(organizationId, userLinkId);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling UserManagementApi#deleteUserLink");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **organizationId** | **String**|  | |
+| **userLinkId** | **String**|  | |
+
+### Return type
+
+[**BaseSuccessResponse**](BaseSuccessResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  * X-Iam-User-Organization - Organization Id of the authenticated user <br>  |
+| **400** | Error response |  * X-Iam-User-Organization - Organization Id of the authenticated user <br>  |
+| **401** | Error response |  * X-Iam-User-Organization - Organization Id of the authenticated user <br>  |
+| **403** | Error response |  * X-Iam-User-Organization - Organization Id of the authenticated user <br>  |
+| **404** | Error response |  * X-Iam-User-Organization - Organization Id of the authenticated user <br>  |
+| **429** | Error response |  * X-Iam-User-Organization - Organization Id of the authenticated user <br>  |
+| **0** | Error response |  * X-Iam-User-Organization - Organization Id of the authenticated user <br>  |
+
+
 ## getSubOrganizationUser
 
 > User getSubOrganizationUser(userName, organizationId, subOrganizationName)
@@ -829,6 +912,85 @@ public class Example {
 | **0** | Error response |  * X-Iam-User-Organization - Organization Id of the authenticated user <br>  |
 
 
+## linkUser
+
+> TokenResponse linkUser(organizationId, linkUserRequest)
+
+Link one user with another user of same/different organization
+
+Link one user with another user of same/different organization
+
+### Example
+
+```java
+// Import classes:
+import com.hypto.iam.client.ApiClient;
+import com.hypto.iam.client.ApiException;
+import com.hypto.iam.client.Configuration;
+import com.hypto.iam.client.auth.*;
+import com.hypto.iam.client.models.*;
+import com.hypto.iam.client.api.UserManagementApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://sandbox-iam.us.hypto.com/v1");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
+
+        UserManagementApi apiInstance = new UserManagementApi(defaultClient);
+        String organizationId = "organizationId_example"; // String | 
+        LinkUserRequest linkUserRequest = new LinkUserRequest(); // LinkUserRequest | Payload to link a user to another user of same/different organization
+        try {
+            TokenResponse result = apiInstance.linkUser(organizationId, linkUserRequest);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling UserManagementApi#linkUser");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **organizationId** | **String**|  | |
+| **linkUserRequest** | [**LinkUserRequest**](LinkUserRequest.md)| Payload to link a user to another user of same/different organization | |
+
+### Return type
+
+[**TokenResponse**](TokenResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, text/plain
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Response with token |  * X-Iam-User-Organization - Organization Id of the authenticated user <br>  |
+| **400** | Error response |  * X-Iam-User-Organization - Organization Id of the authenticated user <br>  |
+| **401** | Error response |  * X-Iam-User-Organization - Organization Id of the authenticated user <br>  |
+| **403** | Error response |  * X-Iam-User-Organization - Organization Id of the authenticated user <br>  |
+| **404** | Error response |  * X-Iam-User-Organization - Organization Id of the authenticated user <br>  |
+| **429** | Error response |  * X-Iam-User-Organization - Organization Id of the authenticated user <br>  |
+| **0** | Error response |  * X-Iam-User-Organization - Organization Id of the authenticated user <br>  |
+
+
 ## listSubOrganizationUsers
 
 > UserPaginatedResponse listSubOrganizationUsers(organizationId, subOrganizationName, nextToken, pageSize)
@@ -907,6 +1069,91 @@ public class Example {
 | **400** | Error response |  * X-Iam-User-Organization - Organization Id of the authenticated user <br>  |
 | **401** | Error response |  * X-Iam-User-Organization - Organization Id of the authenticated user <br>  |
 | **403** | Error response |  * X-Iam-User-Organization - Organization Id of the authenticated user <br>  |
+| **429** | Error response |  * X-Iam-User-Organization - Organization Id of the authenticated user <br>  |
+| **0** | Error response |  * X-Iam-User-Organization - Organization Id of the authenticated user <br>  |
+
+
+## listUserLinks
+
+> LinkUsersPaginatedResponse listUserLinks(organizationId, role, nextToken, pageSize, sortOrder)
+
+List user links based on the role.
+
+Each user link is associated with a leader user and a subordinate user. This API allows to list all users  of a certain role[LEADER/SUBORDINATE] linked with the current user. 
+
+### Example
+
+```java
+// Import classes:
+import com.hypto.iam.client.ApiClient;
+import com.hypto.iam.client.ApiException;
+import com.hypto.iam.client.Configuration;
+import com.hypto.iam.client.auth.*;
+import com.hypto.iam.client.models.*;
+import com.hypto.iam.client.api.UserManagementApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://sandbox-iam.us.hypto.com/v1");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
+
+        UserManagementApi apiInstance = new UserManagementApi(defaultClient);
+        String organizationId = "organizationId_example"; // String | 
+        String role = "LEADER"; // String | 
+        String nextToken = "eyJsYXN0SXRlbUlkIjogInN0cmluZyIsICJwYWdlU2l6ZSI6IDEyMywgInNvcnRPcmRlciI6ICJhc2MifQ=="; // String | 
+        String pageSize = "10"; // String | 
+        String sortOrder = "asc"; // String | 
+        try {
+            LinkUsersPaginatedResponse result = apiInstance.listUserLinks(organizationId, role, nextToken, pageSize, sortOrder);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling UserManagementApi#listUserLinks");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **organizationId** | **String**|  | |
+| **role** | **String**|  | [enum: LEADER, SUBORDINATE] |
+| **nextToken** | **String**|  | [optional] |
+| **pageSize** | **String**|  | [optional] |
+| **sortOrder** | **String**|  | [optional] [enum: asc, desc] |
+
+### Return type
+
+[**LinkUsersPaginatedResponse**](LinkUsersPaginatedResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Response for list users linked with the current user |  * X-Iam-User-Organization - Organization Id of the authenticated user <br>  |
+| **400** | Error response |  * X-Iam-User-Organization - Organization Id of the authenticated user <br>  |
+| **401** | Error response |  * X-Iam-User-Organization - Organization Id of the authenticated user <br>  |
+| **403** | Error response |  * X-Iam-User-Organization - Organization Id of the authenticated user <br>  |
+| **404** | Error response |  * X-Iam-User-Organization - Organization Id of the authenticated user <br>  |
 | **429** | Error response |  * X-Iam-User-Organization - Organization Id of the authenticated user <br>  |
 | **0** | Error response |  * X-Iam-User-Organization - Organization Id of the authenticated user <br>  |
 
@@ -1147,6 +1394,85 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | OK |  * X-Iam-User-Organization - Organization Id of the authenticated user <br>  |
+| **400** | Error response |  * X-Iam-User-Organization - Organization Id of the authenticated user <br>  |
+| **401** | Error response |  * X-Iam-User-Organization - Organization Id of the authenticated user <br>  |
+| **403** | Error response |  * X-Iam-User-Organization - Organization Id of the authenticated user <br>  |
+| **404** | Error response |  * X-Iam-User-Organization - Organization Id of the authenticated user <br>  |
+| **429** | Error response |  * X-Iam-User-Organization - Organization Id of the authenticated user <br>  |
+| **0** | Error response |  * X-Iam-User-Organization - Organization Id of the authenticated user <br>  |
+
+
+## switchUser
+
+> TokenResponse switchUser(organizationId, userLinkId)
+
+Get authentication details for switching user
+
+Get authentication details for switching user
+
+### Example
+
+```java
+// Import classes:
+import com.hypto.iam.client.ApiClient;
+import com.hypto.iam.client.ApiException;
+import com.hypto.iam.client.Configuration;
+import com.hypto.iam.client.auth.*;
+import com.hypto.iam.client.models.*;
+import com.hypto.iam.client.api.UserManagementApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://sandbox-iam.us.hypto.com/v1");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
+
+        UserManagementApi apiInstance = new UserManagementApi(defaultClient);
+        String organizationId = "organizationId_example"; // String | 
+        String userLinkId = "userLinkId_example"; // String | 
+        try {
+            TokenResponse result = apiInstance.switchUser(organizationId, userLinkId);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling UserManagementApi#switchUser");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **organizationId** | **String**|  | |
+| **userLinkId** | **String**|  | |
+
+### Return type
+
+[**TokenResponse**](TokenResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, text/plain
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Response with token |  * X-Iam-User-Organization - Organization Id of the authenticated user <br>  |
 | **400** | Error response |  * X-Iam-User-Organization - Organization Id of the authenticated user <br>  |
 | **401** | Error response |  * X-Iam-User-Organization - Organization Id of the authenticated user <br>  |
 | **403** | Error response |  * X-Iam-User-Organization - Organization Id of the authenticated user <br>  |

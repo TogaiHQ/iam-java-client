@@ -55,7 +55,9 @@ public class VerifyEmailRequest {
 
         SIGNUP("signup"),
 
-        INVITE("invite");
+        INVITE("invite"),
+
+        LINK_USER("link_user");
 
         private String value;
 

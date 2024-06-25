@@ -7255,6 +7255,690 @@ paths:
       - User Credential Management
       x-content-type: application/json
       x-accepts: application/json
+  /user_links:
+    get:
+      description: "Each user link is associated with a leader user and a subordinate\
+        \ user. This API allows to list all users \nof a certain role[LEADER/SUBORDINATE]\
+        \ linked with the current user.\n"
+      operationId: listUserLinks
+      parameters:
+      - content:
+          application/json:
+            schema:
+              example: XlK5h64gND
+              maxLength: 10
+              pattern: "^[A-Za-z0-9]{10}$"
+              type: string
+        explode: false
+        in: path
+        name: organization_id
+        required: true
+        style: simple
+      - content:
+          application/json:
+            schema:
+              enum:
+              - LEADER
+              - SUBORDINATE
+              example: LEADER
+              type: string
+        explode: true
+        in: query
+        name: role
+        required: true
+        style: form
+      - explode: true
+        in: query
+        name: nextToken
+        required: false
+        schema:
+          example: eyJsYXN0SXRlbUlkIjogInN0cmluZyIsICJwYWdlU2l6ZSI6IDEyMywgInNvcnRPcmRlciI6ICJhc2MifQ==
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          example: "10"
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: sortOrder
+        required: false
+        schema:
+          enum:
+          - asc
+          - desc
+          example: asc
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              examples:
+                LinkUsersPaginatedResponse:
+                  $ref: '#/components/examples/LinkUsersPaginatedResponse'
+              schema:
+                $ref: '#/components/schemas/LinkUsersPaginatedResponse'
+          description: Response for list users linked with the current user
+          headers:
+            X-Iam-User-Organization:
+              description: Organization Id of the authenticated user
+              example: XlK5h64gND
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "400":
+          content:
+            application/json:
+              examples:
+                ErrorResponse:
+                  summary: Error message
+                  value:
+                    message: <Reason message>
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Error response
+          headers:
+            X-Iam-User-Organization:
+              description: Organization Id of the authenticated user
+              example: XlK5h64gND
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "401":
+          content:
+            application/json:
+              examples:
+                ErrorResponse:
+                  summary: Error message
+                  value:
+                    message: <Reason message>
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Error response
+          headers:
+            X-Iam-User-Organization:
+              description: Organization Id of the authenticated user
+              example: XlK5h64gND
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "403":
+          content:
+            application/json:
+              examples:
+                ErrorResponse:
+                  summary: Error message
+                  value:
+                    message: <Reason message>
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Error response
+          headers:
+            X-Iam-User-Organization:
+              description: Organization Id of the authenticated user
+              example: XlK5h64gND
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "404":
+          content:
+            application/json:
+              examples:
+                ErrorResponse:
+                  summary: Error message
+                  value:
+                    message: <Reason message>
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Error response
+          headers:
+            X-Iam-User-Organization:
+              description: Organization Id of the authenticated user
+              example: XlK5h64gND
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "429":
+          content:
+            application/json:
+              examples:
+                ErrorResponse:
+                  summary: Error message
+                  value:
+                    message: <Reason message>
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Error response
+          headers:
+            X-Iam-User-Organization:
+              description: Organization Id of the authenticated user
+              example: XlK5h64gND
+              explode: false
+              schema:
+                type: string
+              style: simple
+        default:
+          content:
+            application/json:
+              examples:
+                ErrorResponse:
+                  summary: Error message
+                  value:
+                    message: <Reason message>
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Error response
+          headers:
+            X-Iam-User-Organization:
+              description: Organization Id of the authenticated user
+              example: XlK5h64gND
+              explode: false
+              schema:
+                type: string
+              style: simple
+      summary: List user links based on the role.
+      tags:
+      - User Management
+      x-accepts: application/json
+    post:
+      description: Link one user with another user of same/different organization
+      operationId: linkUser
+      parameters:
+      - content:
+          application/json:
+            schema:
+              example: XlK5h64gND
+              maxLength: 10
+              pattern: "^[A-Za-z0-9]{10}$"
+              type: string
+        explode: false
+        in: path
+        name: organization_id
+        required: true
+        style: simple
+      requestBody:
+        $ref: '#/components/requestBodies/LinkUserRequest'
+      responses:
+        "200":
+          content:
+            application/json:
+              examples:
+                TokenResponse:
+                  $ref: '#/components/examples/TokenResponse'
+              schema:
+                $ref: '#/components/schemas/TokenResponse'
+            text/plain:
+              example: XlK5h64gNDBfMXAPKKGRmWjaxmXJJzDKIJNWqSWj
+              schema:
+                type: string
+          description: Response with token
+          headers:
+            X-Iam-User-Organization:
+              description: Organization Id of the authenticated user
+              example: XlK5h64gND
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "400":
+          content:
+            application/json:
+              examples:
+                ErrorResponse:
+                  summary: Error message
+                  value:
+                    message: <Reason message>
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Error response
+          headers:
+            X-Iam-User-Organization:
+              description: Organization Id of the authenticated user
+              example: XlK5h64gND
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "401":
+          content:
+            application/json:
+              examples:
+                ErrorResponse:
+                  summary: Error message
+                  value:
+                    message: <Reason message>
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Error response
+          headers:
+            X-Iam-User-Organization:
+              description: Organization Id of the authenticated user
+              example: XlK5h64gND
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "403":
+          content:
+            application/json:
+              examples:
+                ErrorResponse:
+                  summary: Error message
+                  value:
+                    message: <Reason message>
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Error response
+          headers:
+            X-Iam-User-Organization:
+              description: Organization Id of the authenticated user
+              example: XlK5h64gND
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "404":
+          content:
+            application/json:
+              examples:
+                ErrorResponse:
+                  summary: Error message
+                  value:
+                    message: <Reason message>
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Error response
+          headers:
+            X-Iam-User-Organization:
+              description: Organization Id of the authenticated user
+              example: XlK5h64gND
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "429":
+          content:
+            application/json:
+              examples:
+                ErrorResponse:
+                  summary: Error message
+                  value:
+                    message: <Reason message>
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Error response
+          headers:
+            X-Iam-User-Organization:
+              description: Organization Id of the authenticated user
+              example: XlK5h64gND
+              explode: false
+              schema:
+                type: string
+              style: simple
+        default:
+          content:
+            application/json:
+              examples:
+                ErrorResponse:
+                  summary: Error message
+                  value:
+                    message: <Reason message>
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Error response
+          headers:
+            X-Iam-User-Organization:
+              description: Organization Id of the authenticated user
+              example: XlK5h64gND
+              explode: false
+              schema:
+                type: string
+              style: simple
+      summary: Link one user with another user of same/different organization
+      tags:
+      - User Management
+      x-content-type: application/json
+      x-accepts: application/json
+  /user_links/{user_link_id}:
+    delete:
+      description: Delete an user link
+      operationId: deleteUserLink
+      parameters:
+      - content:
+          application/json:
+            schema:
+              example: XlK5h64gND
+              maxLength: 10
+              pattern: "^[A-Za-z0-9]{10}$"
+              type: string
+        explode: false
+        in: path
+        name: organization_id
+        required: true
+        style: simple
+      - content:
+          application/json:
+            schema:
+              example: IFXNLQHFYDDBKASUEABR
+              maxLength: 20
+              pattern: "^[A-Za-z0-9]{10}$"
+              type: string
+        explode: false
+        in: path
+        name: user_link_id
+        required: true
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseSuccessResponse'
+          description: OK
+          headers:
+            X-Iam-User-Organization:
+              description: Organization Id of the authenticated user
+              example: XlK5h64gND
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "400":
+          content:
+            application/json:
+              examples:
+                ErrorResponse:
+                  summary: Error message
+                  value:
+                    message: <Reason message>
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Error response
+          headers:
+            X-Iam-User-Organization:
+              description: Organization Id of the authenticated user
+              example: XlK5h64gND
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "401":
+          content:
+            application/json:
+              examples:
+                ErrorResponse:
+                  summary: Error message
+                  value:
+                    message: <Reason message>
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Error response
+          headers:
+            X-Iam-User-Organization:
+              description: Organization Id of the authenticated user
+              example: XlK5h64gND
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "403":
+          content:
+            application/json:
+              examples:
+                ErrorResponse:
+                  summary: Error message
+                  value:
+                    message: <Reason message>
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Error response
+          headers:
+            X-Iam-User-Organization:
+              description: Organization Id of the authenticated user
+              example: XlK5h64gND
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "404":
+          content:
+            application/json:
+              examples:
+                ErrorResponse:
+                  summary: Error message
+                  value:
+                    message: <Reason message>
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Error response
+          headers:
+            X-Iam-User-Organization:
+              description: Organization Id of the authenticated user
+              example: XlK5h64gND
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "429":
+          content:
+            application/json:
+              examples:
+                ErrorResponse:
+                  summary: Error message
+                  value:
+                    message: <Reason message>
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Error response
+          headers:
+            X-Iam-User-Organization:
+              description: Organization Id of the authenticated user
+              example: XlK5h64gND
+              explode: false
+              schema:
+                type: string
+              style: simple
+        default:
+          content:
+            application/json:
+              examples:
+                ErrorResponse:
+                  summary: Error message
+                  value:
+                    message: <Reason message>
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Error response
+          headers:
+            X-Iam-User-Organization:
+              description: Organization Id of the authenticated user
+              example: XlK5h64gND
+              explode: false
+              schema:
+                type: string
+              style: simple
+      summary: Delete an user link
+      tags:
+      - User Management
+      x-accepts: application/json
+    post:
+      description: Get authentication details for switching user
+      operationId: switchUser
+      parameters:
+      - content:
+          application/json:
+            schema:
+              example: XlK5h64gND
+              maxLength: 10
+              pattern: "^[A-Za-z0-9]{10}$"
+              type: string
+        explode: false
+        in: path
+        name: organization_id
+        required: true
+        style: simple
+      - content:
+          application/json:
+            schema:
+              example: IFXNLQHFYDDBKASUEABR
+              maxLength: 20
+              pattern: "^[A-Za-z0-9]{10}$"
+              type: string
+        explode: false
+        in: path
+        name: user_link_id
+        required: true
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              examples:
+                TokenResponse:
+                  $ref: '#/components/examples/TokenResponse'
+              schema:
+                $ref: '#/components/schemas/TokenResponse'
+            text/plain:
+              example: XlK5h64gNDBfMXAPKKGRmWjaxmXJJzDKIJNWqSWj
+              schema:
+                type: string
+          description: Response with token
+          headers:
+            X-Iam-User-Organization:
+              description: Organization Id of the authenticated user
+              example: XlK5h64gND
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "400":
+          content:
+            application/json:
+              examples:
+                ErrorResponse:
+                  summary: Error message
+                  value:
+                    message: <Reason message>
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Error response
+          headers:
+            X-Iam-User-Organization:
+              description: Organization Id of the authenticated user
+              example: XlK5h64gND
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "401":
+          content:
+            application/json:
+              examples:
+                ErrorResponse:
+                  summary: Error message
+                  value:
+                    message: <Reason message>
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Error response
+          headers:
+            X-Iam-User-Organization:
+              description: Organization Id of the authenticated user
+              example: XlK5h64gND
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "403":
+          content:
+            application/json:
+              examples:
+                ErrorResponse:
+                  summary: Error message
+                  value:
+                    message: <Reason message>
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Error response
+          headers:
+            X-Iam-User-Organization:
+              description: Organization Id of the authenticated user
+              example: XlK5h64gND
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "404":
+          content:
+            application/json:
+              examples:
+                ErrorResponse:
+                  summary: Error message
+                  value:
+                    message: <Reason message>
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Error response
+          headers:
+            X-Iam-User-Organization:
+              description: Organization Id of the authenticated user
+              example: XlK5h64gND
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "429":
+          content:
+            application/json:
+              examples:
+                ErrorResponse:
+                  summary: Error message
+                  value:
+                    message: <Reason message>
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Error response
+          headers:
+            X-Iam-User-Organization:
+              description: Organization Id of the authenticated user
+              example: XlK5h64gND
+              explode: false
+              schema:
+                type: string
+              style: simple
+        default:
+          content:
+            application/json:
+              examples:
+                ErrorResponse:
+                  summary: Error message
+                  value:
+                    message: <Reason message>
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Error response
+          headers:
+            X-Iam-User-Organization:
+              description: Organization Id of the authenticated user
+              example: XlK5h64gND
+              explode: false
+              schema:
+                type: string
+              style: simple
+      summary: Get authentication details for switching user
+      tags:
+      - User Management
+      x-accepts: application/json
   /organizations/{organization_id}/resources:
     get:
       description: List all the resource names in an organization.
@@ -9921,6 +10605,8 @@ paths:
         name: organization_id
         required: true
         style: simple
+      requestBody:
+        $ref: '#/components/requestBodies/GetTokenForSubOrgRequest'
       responses:
         "200":
           content:
@@ -10044,6 +10730,7 @@ paths:
       summary: Generate a organization_id scoped token
       tags:
       - User Authorization
+      x-content-type: application/json
       x-accepts: application/json
   /organizations/{organization_id}/sub_organizations/{sub_organization_name}/token:
     post:
@@ -11311,6 +11998,13 @@ components:
       value:
         issuer: google
         token: <JWT token or Access token provided by the auth provider>
+    LinkUserRequest:
+      summary: sample set user password request
+      value:
+        type: USERNAME_PASSWORD
+        usernamePasswordConfig:
+          email: acme@acme.com
+          password: Password@123
     CreateCredentialRequest:
       summary: sample create credential request
       value:
@@ -11505,6 +12199,17 @@ components:
         context:
           pageSize: 10
           sortOrder: asc
+    LinkUsersPaginatedResponse:
+      value:
+        data:
+        - id: IFXNLQHFYD
+          name: Lorem Ipsum
+          organizationId: XlK5h64gND
+          email: bob@acme.com
+        nextToken: eyJsYXN0SXRlbUlkIjogInN0cmluZyIsICJwYWdlU2l6ZSI6IDEyMywgInNvcnRPcmRlciI6ICJhc2MifQ==
+        context:
+          pageSize: 10
+          sortOrder: asc
     UserAuthMethodsResponse:
       value:
         data:
@@ -11668,6 +12373,10 @@ components:
         - resource: hrn:XlK5h64gND::invoice/*
           action: hrn:XlK5h64gND::invoice$view
           effect: allow
+    GetTokenForSubOrgRequest:
+      summary: A sample GetTokenForSubOrgRequest
+      value:
+        email: email@email.com
   parameters:
     user_name:
       content:
@@ -11745,6 +12454,19 @@ components:
       name: sub_organization_name
       required: true
       style: simple
+    user_link_id:
+      content:
+        application/json:
+          schema:
+            example: IFXNLQHFYDDBKASUEABR
+            maxLength: 20
+            pattern: "^[A-Za-z0-9]{10}$"
+            type: string
+      explode: false
+      in: path
+      name: user_link_id
+      required: true
+      style: simple
     credential_id:
       content:
         application/json:
@@ -11769,6 +12491,20 @@ components:
       name: kid
       required: true
       style: simple
+    role:
+      content:
+        application/json:
+          schema:
+            enum:
+            - LEADER
+            - SUBORDINATE
+            example: LEADER
+            type: string
+      explode: true
+      in: query
+      name: role
+      required: true
+      style: form
     format:
       explode: true
       in: query
@@ -11945,6 +12681,16 @@ components:
             $ref: '#/components/schemas/UpdateCredentialRequest'
       description: Payload to update credential
       required: true
+    LinkUserRequest:
+      content:
+        application/json:
+          examples:
+            LinkUserRequest:
+              $ref: '#/components/examples/LinkUserRequest'
+          schema:
+            $ref: '#/components/schemas/LinkUserRequest'
+      description: Payload to link a user to another user of same/different organization
+      required: true
     CreateResourceRequest:
       content:
         application/json:
@@ -12070,6 +12816,16 @@ components:
           schema:
             $ref: '#/components/schemas/GetDelegateTokenRequest'
       description: Payload to generate a delegate-able token
+      required: true
+    GetTokenForSubOrgRequest:
+      content:
+        application/json:
+          examples:
+            GetTokenForSubOrgRequest:
+              $ref: '#/components/examples/GetTokenForSubOrgRequest'
+          schema:
+            $ref: '#/components/schemas/GetTokenForSubOrgRequest'
+      description: Payload to generate a token for sub organization user
       required: true
   responses:
     BaseSuccessResponse:
@@ -12424,6 +13180,23 @@ components:
           schema:
             type: string
           style: simple
+    LinkUsersPaginatedResponse:
+      content:
+        application/json:
+          examples:
+            LinkUsersPaginatedResponse:
+              $ref: '#/components/examples/LinkUsersPaginatedResponse'
+          schema:
+            $ref: '#/components/schemas/LinkUsersPaginatedResponse'
+      description: Response for list users linked with the current user
+      headers:
+        X-Iam-User-Organization:
+          description: Organization Id of the authenticated user
+          example: XlK5h64gND
+          explode: false
+          schema:
+            type: string
+          style: simple
     UserAuthMethodsResponse:
       content:
         application/json:
@@ -12622,8 +13395,10 @@ components:
       description: Payload to create ledger account
       example:
         password: password
+        issuerToken: issuerToken
         preferredUsername: preferredUsername
         phone: phone
+        issuerName: issuerName
         name: name
         verified: true
         loginAccess: false
@@ -12644,6 +13419,10 @@ components:
           maxLength: 320
           pattern: ^\S+@\S+\.\S+$
           type: string
+        issuerName:
+          type: string
+        issuerToken:
+          type: string
         phone:
           maxLength: 30
           type: string
@@ -12658,7 +13437,6 @@ components:
           default: false
           type: boolean
       required:
-      - name
       - status
       type: object
     UpdateUserRequest:
@@ -12773,6 +13551,36 @@ components:
           - active
           - inactive
           type: string
+      type: object
+    LinkUserRequest:
+      additionalProperties: false
+      description: Payload to link a user to another user of same/different organization
+      example:
+        tokenCredentialConfig:
+          token: token
+        passcodeConfig:
+          passcode: passcode
+        type: PASSCODE
+        usernamePasswordConfig:
+          organizationId: organizationId
+          password: password
+          subOrganizationId: subOrganizationId
+          email: email
+      properties:
+        type:
+          enum:
+          - PASSCODE
+          - USERNAME_PASSWORD
+          - TOKEN_CREDENTIAL
+          type: string
+        passcodeConfig:
+          $ref: '#/components/schemas/PasscodeConfig'
+        usernamePasswordConfig:
+          $ref: '#/components/schemas/UsernamePasswordConfig'
+        tokenCredentialConfig:
+          $ref: '#/components/schemas/TokenCredentialConfig'
+      required:
+      - type
       type: object
     CreateResourceRequest:
       additionalProperties: false
@@ -12990,6 +13798,7 @@ components:
           - reset
           - signup
           - invite
+          - link_user
           type: string
         metadata:
           additionalProperties: true
@@ -13028,6 +13837,13 @@ components:
       description: payload to generate a delegate_token
       example:
         principal: principal
+        policyTemplateConfig:
+        - templateName: templateName
+          templateVariables:
+            key: templateVariables
+        - templateName: templateName
+          templateVariables:
+            key: templateVariables
         expiry: 0
         policy: policy
       properties:
@@ -13047,6 +13863,10 @@ components:
             Policy with which to generate the delegate token.
             Can be just the name of the policy if it is in the requestors organization or a complete policy resourceHrn
           type: string
+        policyTemplateConfig:
+          items:
+            $ref: '#/components/schemas/TemplateNameAndVariables'
+          type: array
       required:
       - policy
       type: object
@@ -13343,6 +14163,70 @@ components:
           maxItems: 100
           minItems: 0
           type: array
+      type: object
+    LinkUserResponse:
+      additionalProperties: false
+      example:
+        organizationId: organizationId
+        name: name
+        id: id
+        email: email
+      properties:
+        id:
+          type: string
+        name:
+          maxLength: 50
+          type: string
+        organizationId:
+          maxLength: 50
+          type: string
+        email:
+          maxLength: 320
+          type: string
+      required:
+      - id
+      - name
+      - organizationId
+      type: object
+    LinkUsersPaginatedResponse:
+      additionalProperties: false
+      example:
+        data:
+        - organizationId: organizationId
+          name: name
+          id: id
+          email: email
+        - organizationId: organizationId
+          name: name
+          id: id
+          email: email
+        - organizationId: organizationId
+          name: name
+          id: id
+          email: email
+        - organizationId: organizationId
+          name: name
+          id: id
+          email: email
+        - organizationId: organizationId
+          name: name
+          id: id
+          email: email
+        nextToken: nextToken
+        context:
+          sortOrder: asc
+          pageSize: 0
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/LinkUserResponse'
+          maxItems: 100
+          minItems: 0
+          type: array
+        nextToken:
+          type: string
+        context:
+          $ref: '#/components/schemas/PaginationOptions'
       type: object
     PolicyPaginatedResponse:
       additionalProperties: false
@@ -14147,6 +15031,86 @@ components:
           - asc
           - desc
           type: string
+      type: object
+    GetTokenForSubOrgRequest:
+      additionalProperties: false
+      example:
+        expiry: 0
+        email: email
+      properties:
+        email:
+          description: Email of the sub organization user to get token for
+          maxLength: 320
+          type: string
+        expiry:
+          description: |
+            Expiry in seconds from the time of generation. If not provided, the token will have the expiry of 24 hours
+          type: integer
+      required:
+      - email
+      type: object
+    PasscodeConfig:
+      additionalProperties: false
+      example:
+        passcode: passcode
+      properties:
+        passcode:
+          maxLength: 320
+          type: string
+      required:
+      - passcode
+      title: PasscodeConfig
+      type: object
+    UsernamePasswordConfig:
+      additionalProperties: false
+      example:
+        organizationId: organizationId
+        password: password
+        subOrganizationId: subOrganizationId
+        email: email
+      properties:
+        email:
+          maxLength: 320
+          type: string
+        password:
+          maxLength: 100
+          type: string
+        organizationId:
+          type: string
+        subOrganizationId:
+          type: string
+      required:
+      - email
+      - password
+      title: UsernamePasswordConfig
+      type: object
+    TokenCredentialConfig:
+      additionalProperties: false
+      example:
+        token: token
+      properties:
+        token:
+          type: string
+      required:
+      - token
+      title: TokenCredentialConfig
+      type: object
+    TemplateNameAndVariables:
+      example:
+        templateName: templateName
+        templateVariables:
+          key: templateVariables
+      properties:
+        templateName:
+          maxLength: 512
+          type: string
+        templateVariables:
+          additionalProperties:
+            type: string
+          type: object
+      required:
+      - templateName
+      title: TemplateNameAndVariables
       type: object
   securitySchemes:
     bearerAuth:

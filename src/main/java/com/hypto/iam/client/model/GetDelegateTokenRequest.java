@@ -15,6 +15,8 @@ package com.hypto.iam.client.model;
 import com.google.gson.annotations.SerializedName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /** payload to generate a delegate_token */
@@ -35,6 +37,11 @@ public class GetDelegateTokenRequest {
 
     @SerializedName(SERIALIZED_NAME_POLICY)
     private String policy;
+
+    public static final String SERIALIZED_NAME_POLICY_TEMPLATE_CONFIG = "policyTemplateConfig";
+
+    @SerializedName(SERIALIZED_NAME_POLICY_TEMPLATE_CONFIG)
+    private List<TemplateNameAndVariables> policyTemplateConfig = null;
 
     public GetDelegateTokenRequest() {}
 
@@ -117,6 +124,37 @@ public class GetDelegateTokenRequest {
         this.policy = policy;
     }
 
+    public GetDelegateTokenRequest policyTemplateConfig(
+            List<TemplateNameAndVariables> policyTemplateConfig) {
+
+        this.policyTemplateConfig = policyTemplateConfig;
+        return this;
+    }
+
+    public GetDelegateTokenRequest addPolicyTemplateConfigItem(
+            TemplateNameAndVariables policyTemplateConfigItem) {
+        if (this.policyTemplateConfig == null) {
+            this.policyTemplateConfig = new ArrayList<>();
+        }
+        this.policyTemplateConfig.add(policyTemplateConfigItem);
+        return this;
+    }
+
+    /**
+     * Get policyTemplateConfig
+     *
+     * @return policyTemplateConfig
+     */
+    @javax.annotation.Nullable
+    @ApiModelProperty(value = "")
+    public List<TemplateNameAndVariables> getPolicyTemplateConfig() {
+        return policyTemplateConfig;
+    }
+
+    public void setPolicyTemplateConfig(List<TemplateNameAndVariables> policyTemplateConfig) {
+        this.policyTemplateConfig = policyTemplateConfig;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -128,12 +166,14 @@ public class GetDelegateTokenRequest {
         GetDelegateTokenRequest getDelegateTokenRequest = (GetDelegateTokenRequest) o;
         return Objects.equals(this.principal, getDelegateTokenRequest.principal)
                 && Objects.equals(this.expiry, getDelegateTokenRequest.expiry)
-                && Objects.equals(this.policy, getDelegateTokenRequest.policy);
+                && Objects.equals(this.policy, getDelegateTokenRequest.policy)
+                && Objects.equals(
+                        this.policyTemplateConfig, getDelegateTokenRequest.policyTemplateConfig);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(principal, expiry, policy);
+        return Objects.hash(principal, expiry, policy, policyTemplateConfig);
     }
 
     @Override
@@ -143,6 +183,9 @@ public class GetDelegateTokenRequest {
         sb.append("    principal: ").append(toIndentedString(principal)).append("\n");
         sb.append("    expiry: ").append(toIndentedString(expiry)).append("\n");
         sb.append("    policy: ").append(toIndentedString(policy)).append("\n");
+        sb.append("    policyTemplateConfig: ")
+                .append(toIndentedString(policyTemplateConfig))
+                .append("\n");
         sb.append("}");
         return sb.toString();
     }

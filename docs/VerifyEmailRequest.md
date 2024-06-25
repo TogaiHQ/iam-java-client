@@ -24,6 +24,7 @@ Payload to send verification link to email
 | RESET | &quot;reset&quot; |
 | SIGNUP | &quot;signup&quot; |
 | INVITE | &quot;invite&quot; |
+| LINK_USER | &quot;link_user&quot; |
 
 
 
