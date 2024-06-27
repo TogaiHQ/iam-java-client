@@ -8,6 +8,7 @@ docs/AddUserAuthMethodRequest.md
 docs/AuthProvider.md
 docs/AuthProviderPaginatedResponse.md
 docs/AuthProvidersApi.md
+docs/AuthUrlResponse.md
 docs/BaseSuccessResponse.md
 docs/ChangeUserPasswordRequest.md
 docs/CreateActionRequest.md
@@ -53,6 +54,7 @@ docs/ResourceActionManagementApi.md
 docs/ResourceManagementApi.md
 docs/ResourcePaginatedResponse.md
 docs/RootUser.md
+docs/SsoLoginRequest.md
 docs/SubOrganization.md
 docs/SubOrganizationManagementApi.md
 docs/SubOrganizationsPaginatedResponse.md
@@ -119,6 +121,7 @@ src/main/java/com/hypto/iam/client/model/ActionPaginatedResponse.java
 src/main/java/com/hypto/iam/client/model/AddUserAuthMethodRequest.java
 src/main/java/com/hypto/iam/client/model/AuthProvider.java
 src/main/java/com/hypto/iam/client/model/AuthProviderPaginatedResponse.java
+src/main/java/com/hypto/iam/client/model/AuthUrlResponse.java
 src/main/java/com/hypto/iam/client/model/BaseSuccessResponse.java
 src/main/java/com/hypto/iam/client/model/ChangeUserPasswordRequest.java
 src/main/java/com/hypto/iam/client/model/CreateActionRequest.java
@@ -159,6 +162,7 @@ src/main/java/com/hypto/iam/client/model/ResourceAction.java
 src/main/java/com/hypto/iam/client/model/ResourceActionEffect.java
 src/main/java/com/hypto/iam/client/model/ResourcePaginatedResponse.java
 src/main/java/com/hypto/iam/client/model/RootUser.java
+src/main/java/com/hypto/iam/client/model/SsoLoginRequest.java
 src/main/java/com/hypto/iam/client/model/SubOrganization.java
 src/main/java/com/hypto/iam/client/model/SubOrganizationsPaginatedResponse.java
 src/main/java/com/hypto/iam/client/model/TemplateNameAndVariables.java

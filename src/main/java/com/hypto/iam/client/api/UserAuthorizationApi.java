@@ -1,8 +1,10 @@
 package com.hypto.iam.client.api;
 
 import com.hypto.iam.client.CollectionFormats.*;
+import com.hypto.iam.client.model.AuthUrlResponse;
 import com.hypto.iam.client.model.GetDelegateTokenRequest;
 import com.hypto.iam.client.model.GetTokenForSubOrgRequest;
+import com.hypto.iam.client.model.SsoLoginRequest;
 import com.hypto.iam.client.model.TokenResponse;
 import com.hypto.iam.client.model.ValidationRequest;
 import com.hypto.iam.client.model.ValidationResponse;
@@ -61,6 +63,17 @@ public interface UserAuthorizationApi {
             @retrofit2.http.Path("sub_organization_name") String subOrganizationName);
 
     /**
+     * Generate authentication url for the given domain Generate authentication url for the user
+     * given domain during signup
+     *
+     * @param ssoLoginRequest Payload to generate a token for sub organization user (required)
+     * @return Call&lt;AuthUrlResponse&gt;
+     */
+    @Headers({"Content-Type:application/json"})
+    @POST("sso_login")
+    Call<AuthUrlResponse> ssoLogin(@retrofit2.http.Body SsoLoginRequest ssoLoginRequest);
+
+    /**
      * Validate an auth request Validate if the caller has access to resource-action in the request
      *
      * @param validationRequest Payload to validate if a user has access to a resource-action
@@ -91,6 +104,12 @@ public interface UserAuthorizationApi {
     Call<TokenResponse> getTokenForSubOrg(
             @retrofit2.http.Path("organization_id") String organizationId,
             @retrofit2.http.Path("sub_organization_name") String subOrganizationName,
+            @retrofit2.http.HeaderMap Map<String, String> headers);
+
+    @Headers({"Content-Type:application/json"})
+    @POST("sso_login")
+    Call<AuthUrlResponse> ssoLogin(
+            @retrofit2.http.Body SsoLoginRequest ssoLoginRequest,
             @retrofit2.http.HeaderMap Map<String, String> headers);
 
     @Headers({"Content-Type:application/json"})

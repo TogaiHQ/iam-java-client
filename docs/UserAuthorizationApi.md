@@ -8,6 +8,7 @@ All URIs are relative to *https://sandbox-iam.us.hypto.com/v1*
 | [**getToken**](UserAuthorizationApi.md#getToken) | **POST** token | Generate a token |
 | [**getTokenForOrg**](UserAuthorizationApi.md#getTokenForOrg) | **POST** organizations/{organization_id}/token | Generate a organization_id scoped token |
 | [**getTokenForSubOrg**](UserAuthorizationApi.md#getTokenForSubOrg) | **POST** organizations/{organization_id}/sub_organizations/{sub_organization_name}/token | Generate a organization_id scoped token |
+| [**ssoLogin**](UserAuthorizationApi.md#ssoLogin) | **POST** sso_login | Generate authentication url for the given domain |
 | [**validate**](UserAuthorizationApi.md#validate) | **POST** validate | Validate an auth request |
 
 
@@ -329,6 +330,82 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Response with token |  * X-Iam-User-Organization - Organization Id of the authenticated user <br>  |
+| **401** | Error response |  * X-Iam-User-Organization - Organization Id of the authenticated user <br>  |
+| **403** | Error response |  * X-Iam-User-Organization - Organization Id of the authenticated user <br>  |
+| **404** | Error response |  * X-Iam-User-Organization - Organization Id of the authenticated user <br>  |
+| **429** | Error response |  * X-Iam-User-Organization - Organization Id of the authenticated user <br>  |
+| **0** | Error response |  * X-Iam-User-Organization - Organization Id of the authenticated user <br>  |
+
+
+## ssoLogin
+
+> AuthUrlResponse ssoLogin(ssoLoginRequest)
+
+Generate authentication url for the given domain
+
+Generate authentication url for the user given domain during signup
+
+### Example
+
+```java
+// Import classes:
+import com.hypto.iam.client.ApiClient;
+import com.hypto.iam.client.ApiException;
+import com.hypto.iam.client.Configuration;
+import com.hypto.iam.client.auth.*;
+import com.hypto.iam.client.models.*;
+import com.hypto.iam.client.api.UserAuthorizationApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://sandbox-iam.us.hypto.com/v1");
+        
+        // Configure HTTP bearer authorization: bearerAuth
+        HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+        bearerAuth.setBearerToken("BEARER TOKEN");
+
+        UserAuthorizationApi apiInstance = new UserAuthorizationApi(defaultClient);
+        SsoLoginRequest ssoLoginRequest = new SsoLoginRequest(); // SsoLoginRequest | Payload to generate a token for sub organization user
+        try {
+            AuthUrlResponse result = apiInstance.ssoLogin(ssoLoginRequest);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling UserAuthorizationApi#ssoLogin");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **ssoLoginRequest** | [**SsoLoginRequest**](SsoLoginRequest.md)| Payload to generate a token for sub organization user | |
+
+### Return type
+
+[**AuthUrlResponse**](AuthUrlResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Authentication url for the domain |  -  |
 | **401** | Error response |  * X-Iam-User-Organization - Organization Id of the authenticated user <br>  |
 | **403** | Error response |  * X-Iam-User-Organization - Organization Id of the authenticated user <br>  |
 | **404** | Error response |  * X-Iam-User-Organization - Organization Id of the authenticated user <br>  |
