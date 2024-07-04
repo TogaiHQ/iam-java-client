@@ -12501,6 +12501,7 @@ components:
       value:
         domain: email.com
         redirectUri: https://staging-dashboard.togai.dev/login
+        email: email@example.com
   parameters:
     user_name:
       content:
@@ -15207,6 +15208,7 @@ components:
       example:
         redirectUri: redirectUri
         domain: domain
+        email: email
       properties:
         domain:
           description: Domain of the user's organization
@@ -15214,8 +15216,12 @@ components:
         redirectUri:
           description: callback url for generating authentication url
           type: string
+        email:
+          description: email of the user
+          type: string
       required:
       - domain
+      - email
       - redirectUri
       type: object
     PasscodeConfig:

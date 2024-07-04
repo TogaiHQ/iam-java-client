@@ -29,6 +29,11 @@ public class SsoLoginRequest {
     @SerializedName(SERIALIZED_NAME_REDIRECT_URI)
     private String redirectUri;
 
+    public static final String SERIALIZED_NAME_EMAIL = "email";
+
+    @SerializedName(SERIALIZED_NAME_EMAIL)
+    private String email;
+
     public SsoLoginRequest() {}
 
     public SsoLoginRequest domain(String domain) {
@@ -73,6 +78,27 @@ public class SsoLoginRequest {
         this.redirectUri = redirectUri;
     }
 
+    public SsoLoginRequest email(String email) {
+
+        this.email = email;
+        return this;
+    }
+
+    /**
+     * email of the user
+     *
+     * @return email
+     */
+    @javax.annotation.Nonnull
+    @ApiModelProperty(required = true, value = "email of the user")
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -83,12 +109,13 @@ public class SsoLoginRequest {
         }
         SsoLoginRequest ssoLoginRequest = (SsoLoginRequest) o;
         return Objects.equals(this.domain, ssoLoginRequest.domain)
-                && Objects.equals(this.redirectUri, ssoLoginRequest.redirectUri);
+                && Objects.equals(this.redirectUri, ssoLoginRequest.redirectUri)
+                && Objects.equals(this.email, ssoLoginRequest.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(domain, redirectUri);
+        return Objects.hash(domain, redirectUri, email);
     }
 
     @Override
@@ -97,6 +124,7 @@ public class SsoLoginRequest {
         sb.append("class SsoLoginRequest {\n");
         sb.append("    domain: ").append(toIndentedString(domain)).append("\n");
         sb.append("    redirectUri: ").append(toIndentedString(redirectUri)).append("\n");
+        sb.append("    email: ").append(toIndentedString(email)).append("\n");
         sb.append("}");
         return sb.toString();
     }
